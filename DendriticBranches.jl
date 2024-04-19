@@ -216,7 +216,8 @@ module DendriticBranches
     - `seq`: The sequence in which symbol indices of `subseq` are searched.
     
     # Returns
-    A list with initial indices of each Symbol in subseq where the Symbols appear in the same order, with the possibility of other symbols occurring in between.
+    A list with initial indices of each Symbol in subseq where the Symbols appear in the same order, with the possibility of other symbols occurring in between. 
+    If the Symbols are not occuring in the `seq` or not in the correct order, `nothing` is returned.
     
     # Examples 
     ```jldoctest

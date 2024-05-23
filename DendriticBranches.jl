@@ -3,7 +3,7 @@
 module DendriticBranches 
     export subset, is_contiguous_subset, find_first_target_symbols
     using Combinatorics
-    using AbstractTrees
+    #using AbstractTrees
     using StatsBase
     using .Iterators
     using IterTools
@@ -84,13 +84,17 @@ module DendriticBranches
     # Examples 
     ```jldoctest
     julia> branching_combinations([ [:||, :A, :B], :C ])
-    [[:A, :C], [:B, :C]]
-    
+    [[:A, :B, :C], [:B, :A, :C], [:A, :C], [:B, :C]]
+
+    julia> branching_combinations([ [:&, :A, :B], :C ])
+    [[:A, :B, :C], [:B, :A, :C]]
+
     julia> branching_combinations([:A, :B, :A])
     [:A, :B, :A]
     
     julia> branching_combinations([ [:&, [ [:||, :A, :B], :C], :D], :E])
-    [[:A, :C, :D, :E], [:B, :C, :D, :E], [:D, :A, :C, :E], [:D, :B, :C, :E]]
+    [[:A, :B, :C, :D, :E], [:B, :A, :C, :D, :E], [:A, :C, :D, :E], [:B, :C, :D, :E], [:D, :A, :B, :C, :E], [:D, :B, :A, :C, :E], [:D, :A, :C, :E], [:D, :B, :C, :E]]
+
     
     ```
     ---------------------------------------------------------------------------
@@ -111,7 +115,7 @@ module DendriticBranches
             result = target[2]
             symbols = target[1][2:end] 
             if !is_flat_list(symbols)
-                combination_list = check_brackets([branching_combinations(t) for t in symbols])
+                combination_list = combines_or([branching_combinations(t) for t in symbols])
             else 
                 return get_or_combinations(symbols, result)
             end 
@@ -272,13 +276,13 @@ module DendriticBranches
     ```jldoctest
     ## first target symbols for possible branchings [[:A, :C], [:B, :C]]
     julia> find_first_target_symbols([:B, :B, :A, :C, :E, :A, :E, :C], [ [:||, :A, :B], :C ])
-    [[3, 4], [1, 4]]
+    [[1, 3, 4], [3, 4], [1, 4]]
     
     julia> find_first_target_symbols([:C, :B, :B, :C, :A], [ [:||, :A, :B], :C ])
-    [nothing, [2,4]]
+    [nothing, nothing, nothing, [2, 4]]
     
     julia> find_first_target_symbols([:C, :B, :B, :A, :A], [ [:||, :A, :B], :C ])
-    [nothing, nothing]
+    [nothing, nothing, nothing, nothing]
     ```
     ---------------------------------------------------------------------------
     #
@@ -409,14 +413,15 @@ module DendriticBranches
     # Examples 
     ```jldoctest
     julia> get_or_combinations([:A, :B], :C)
-    [[:A, :C], [:B, :C]]
+    [[:A, :B, :C], [:B, :A, :C], [:A, :C], [:B, :C]]
+
     
     ```
     ---------------------------------------------------------------------------
     #
     """
     function get_or_combinations(symbols::Vector{Symbol}, result::Symbol, count=1)
-        return [push!(perm, result) for perm in collect(Combinatorics.permutations(symbols, count))]
+        return append!(get_and_combinations(symbols, result), [push!(perm, result) for perm in collect(Combinatorics.permutations(symbols, count))])
     end 
     
     
@@ -446,7 +451,7 @@ module DendriticBranches
     """
     function final_output(result::Symbol, combination_list::Vector)
         if is_vector_list(combination_list)
-            return[push!(c, result) for c in combination_list]
+            return[push!(c, result) for c in deepcopy(combination_list)]
         elseif is_flat_list(combination_list)
             push!(combination_list, result)
             return [combination_list]
@@ -455,33 +460,33 @@ module DendriticBranches
     
     
     """
-    function check_brackets(expression::Vector) 
+        combines_or(expression::Vector) 
     
-    Adapts the brackets logically in behalf of the OR operation for each element in expression so that the branching pattern can be processed further.
+    Combines all branchings in `symbols` based on the OR operation.
     
     # Arguments
-    - `expression`: A given branching pattern.
+    - `symbols`: A given branching pattern.
     
     # Returns
-    The expression list with adapted brackets.
+    The combined OR list. 
     
     # Examples 
     ```jldoctest
-    julia> check_brackets([[[:A, :C], [:B, :C]], [:D]])
-    [[:A, :C], [:B, :C], [:D]]
-    
-    julia> check_brackets([[[:A, :E], [:B, :E]], [[:D, :F], [:C, :F]]])
-    [[:A, :E], [:B, :E], [:D, :F], [:C, :F]]
+    julia> combines_or([[[:A, :C], [:B, :C]], [:D]])
+    [[:A, :C], [:B, :C], [:D], [:A, :C, :D], [:B, :C, :D], [:D, :A, :C], [:D, :B, :C]]
+
+    julia> combines_or([[[:A], [:B]], [[:C], [:D]]])
+    [[:A], [:B], [:C], [:D], [:A, :C], [:B, :C], [:A, :D], [:B, :D], [:C, :A], [:D, :A], [:C, :B], [:D, :B]]
     
     ```
     ---------------------------------------------------------------------------
     #
     """
-    function check_brackets(expression::Vector) 
+    function combines_or(expression::Vector) 
         if all(x -> is_flat_list(x), expression)
-            return expression 
+            return append!(expression,[collect(Iterators.flatten(c)) for c in collect(Combinatorics.permutations(expression, length(expression)))])
         else
-            return collect(flatten([is_vector_list(e)  ? e : [e] for e in expression]))
+            return append!(collect(Iterators.flatten([is_vector_list(e)  ? e : [e] for e in expression])), combines_and(expression))
         end   
     end
     

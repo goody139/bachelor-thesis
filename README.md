@@ -1,4 +1,4 @@
-
+# bachelor-thesis
 This is the repository for the thesis ["Timing distributions of sequence elements for dendritic sequence processing"](./insert/Pfad/here). 
 It contains code for the experimental setup, Plotting Code, Modeling of Dendritic Branches and a naive classifier and all figures used in the thesis.
 

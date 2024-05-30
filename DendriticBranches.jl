@@ -3,7 +3,6 @@
 module DendriticBranches 
     export subset, is_contiguous_subset, find_first_target_symbols
     using Combinatorics
-    #using AbstractTrees
     using StatsBase
     using .Iterators
     using IterTools

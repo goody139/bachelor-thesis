@@ -2,9 +2,22 @@
 This is the repository for the thesis ["Timing distributions of sequence elements for dendritic sequence processing"](./Thesis/Thesis_lgolla.pdf). 
 It contains code for the experimental setup, Plotting Code, Modeling of Dendritic Branches and a naive classifier and all figures used in the thesis. The data of the results were too large to add them to Github so I uploaded them publicly available on [myshare](https://myshare.uni-osnabrueck.de/d/cdfafc7ce1b44167b049/).
 
-The following image provides an overview of the designed system. For a detailed description and theoretical background of the individual components, refer the [thesis](./filepath/Thesis_Final_Digital.pdf), and see the [receiver code](code/csi_receiver/) for the implementation. 
-(![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/8b93438a-4576-4a2e-98fa-1b05c6c79c2d)
-)
+The following image provides an overview of the designed system. For a detailed description and theoretical background of the individual components, refer the [thesis](./Thesis/Thesis_lgolla.pdf).
+
+
+## Dendritic trees modeled 
+![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/63cf264d-1802-4f59-89bd-38d9a10e0321)
+
+![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/b935dd1c-0c66-484b-8c4c-53865f946d76)
+![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/3638f42d-8c08-4e70-987b-1effc4336733)
+
+
+
+
+
+
+## Naive Classifier 
+![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/147e9f9e-73a0-4ff4-8e2d-cb1a225d83e4)
 
 
 ## Abstract 

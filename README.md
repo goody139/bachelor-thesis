@@ -1,6 +1,5 @@
 # bachelor-thesis
-This is the repository for the thesis ["Timing distributions of sequence elements for dendritic sequence processing"](./Thesis/Thesis_lgolla.pdf). 
-It contains code for the experimental setup, Plotting Code, Modeling of Dendritic Branches and a naive classifier and all figures used in the thesis. The data of the results were too large to add them to Github so I uploaded them publicly available on [myshare](https://myshare.uni-osnabrueck.de/d/cdfafc7ce1b44167b049/).
+This is the repository for the thesis ["Timing distributions of sequence elements for dendritic sequence processing"](./Thesis/Thesis_lgolla.pdf) containing related code and figures. The data of the results were too large to add them to Github so I uploaded them publicly available on [myshare](https://myshare.uni-osnabrueck.de/d/cdfafc7ce1b44167b049/).
 
 The following image provides an overview of the designed system. For a detailed description and theoretical background of the individual components, refer the [thesis](./Thesis/Thesis_lgolla.pdf).
 

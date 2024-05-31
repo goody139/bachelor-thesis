@@ -6,10 +6,8 @@ The following image provides an overview of the designed system. For a detailed 
 
 
 ## Dendritic trees modeled 
-![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/63cf264d-1802-4f59-89bd-38d9a10e0321)
 
-![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/b935dd1c-0c66-484b-8c4c-53865f946d76)
-![grafik](https://github.com/goody139/bachelor-thesis/assets/72889998/3638f42d-8c08-4e70-987b-1effc4336733)
+![tree_table](https://github.com/goody139/bachelor-thesis/assets/72889998/98473f8c-c57e-44a6-b651-ffdcf7aea746)
 
 
 
